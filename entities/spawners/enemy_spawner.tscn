@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dynoi8ypa1m5e"]
+
+[ext_resource type="Texture2D" uid="uid://bkjoditdvdley" path="res://icon.svg" id="1_dpnp4"]
+[ext_resource type="Script" uid="uid://vvn21vsiqbwg" path="res://Resourses/Spawners/enemy_spawner.gd" id="1_s86rw"]
+
+[node name="EnemySpawner" type="RigidBody2D"]
+freeze = true
+script = ExtResource("1_s86rw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dpnp4")
+
+[node name="Time_to_enemy_spawn" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Time_to_enemy_spawn" to="." method="_on_time_to_enemy_spawn_timeout"]

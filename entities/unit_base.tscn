@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhdtrrsvu8ufh"]
+
+[ext_resource type="Script" uid="uid://ddm8jw4vi4d3d" path="res://scripts/UnitBase.cs" id="1_8ri1r"]
+[ext_resource type="PackedScene" uid="uid://doj8uo0oa74yb" path="res://components/healt_bar.tscn" id="1_ajyuc"]
+[ext_resource type="Texture2D" uid="uid://pgmrw8jw2k4n" path="res://art/Entitie00Body.png" id="4_tka4t"]
+[ext_resource type="Texture2D" uid="uid://dsiiy5wc5812m" path="res://art/Entitie00Head.png" id="5_qaahr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0pv0"]
+size = Vector2(6, 9)
+
+[node name="unitBase" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_8ri1r")
+
+[node name="healtBar" parent="." instance=ExtResource("1_ajyuc")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -6.0
+offset_right = 4.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1)
+size_flags_horizontal = 0
+
+[node name="animationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="body" type="Sprite2D" parent="."]
+texture = ExtResource("4_tka4t")
+
+[node name="head" type="Sprite2D" parent="."]
+self_modulate = Color(0.482353, 0.0941176, 0.0666667, 1)
+texture = ExtResource("5_qaahr")
+
+[node name="baseClickArea" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = 2.0
+offset_right = 4.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="criticalClickArea" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -2.0
+offset_right = 4.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="testTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="bodyForm" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_u0pv0")

@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://cr7g8v5bq7v4o"]
+
+[ext_resource type="Script" uid="uid://dnnsetq7gj0y4" path="res://scripts/World00.cs" id="1_hdqhg"]
+[ext_resource type="Script" uid="uid://csy4c1wt70gk0" path="res://scripts/GameManager.cs" id="2_anbin"]
+[ext_resource type="Texture2D" uid="uid://deh4a2tdr876j" path="res://art/Background.png" id="2_ctkek"]
+[ext_resource type="PackedScene" uid="uid://bhdtrrsvu8ufh" path="res://entities/unit_base.tscn" id="3_jlqbd"]
+[ext_resource type="PackedScene" uid="uid://uwf4vtd7egro" path="res://entities/Resourses/ore_base.tscn" id="5_65b2o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ctkek"]
+size = Vector2(2092, 42)
+
+[node name="world_00" type="Node2D"]
+script = ExtResource("1_hdqhg")
+
+[node name="gameManager" type="Node2D" parent="."]
+script = ExtResource("2_anbin")
+
+[node name="entrance" type="Node2D" parent="."]
+position = Vector2(-218, -33)
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_ctkek")
+
+[node name="MainCamera" type="Camera2D" parent="."]
+position = Vector2(-748, -92)
+zoom = Vector2(3, 3)
+
+[node name="floor" type="StaticBody2D" parent="."]
+
+[node name="testfloor" type="CollisionShape2D" parent="floor"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ctkek")
+
+[node name="enemiesList" type="Node2D" parent="."]
+
+[node name="unitBase" parent="enemiesList" instance=ExtResource("3_jlqbd")]
+position = Vector2(48, -86)
+
+[node name="unitBase2" parent="enemiesList" instance=ExtResource("3_jlqbd")]
+position = Vector2(144, -111)
+
+[node name="unitBase3" parent="enemiesList" instance=ExtResource("3_jlqbd")]
+position = Vector2(92, -126)
+
+[node name="unitBase4" parent="enemiesList" instance=ExtResource("3_jlqbd")]
+position = Vector2(111, -151)
+
+[node name="resources" type="Node2D" parent="."]
+
+[node name="oreBase" parent="resources" instance=ExtResource("5_65b2o")]
+position = Vector2(-820, -42)
+
+[node name="oreBase2" parent="resources" instance=ExtResource("5_65b2o")]
+position = Vector2(-815, -63)
+
+[node name="oreBase3" parent="resources" instance=ExtResource("5_65b2o")]
+position = Vector2(-829, -73)
+
+[node name="oreBase4" parent="resources" instance=ExtResource("5_65b2o")]
+position = Vector2(-826, -86)
+
+[node name="oreBase5" parent="resources" instance=ExtResource("5_65b2o")]
+position = Vector2(-825, -103)
+
+[node name="oreBase6" parent="resources" instance=ExtResource("5_65b2o")]
+position = Vector2(-840, -117)
+
+[node name="oreBase7" parent="resources" instance=ExtResource("5_65b2o")]
+position = Vector2(-831, -129)
