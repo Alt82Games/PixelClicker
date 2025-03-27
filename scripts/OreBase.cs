@@ -55,7 +55,7 @@ public partial class OreBase : RigidBody2D
         if(this.LinearVelocity < minVelocity){
             if(canShift){
                 this.LinearVelocity = Vector2.Zero;
-                float x = (int)Math.Floor(this.Position.X/3)*3;
+                float x = (int)Math.Round(this.Position.X/3)*3;
                 float y = this.Position.Y - 0.01f;
                 Position = new Vector2(x,y);
                 canShift = false;

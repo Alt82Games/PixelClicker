@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr7g8v5bq7v4o"]
+[gd_scene load_steps=8 format=3 uid="uid://cr7g8v5bq7v4o"]
 
 [ext_resource type="Script" uid="uid://dnnsetq7gj0y4" path="res://scripts/World00.cs" id="1_hdqhg"]
 [ext_resource type="Script" uid="uid://csy4c1wt70gk0" path="res://scripts/GameManager.cs" id="2_anbin"]
 [ext_resource type="Texture2D" uid="uid://deh4a2tdr876j" path="res://art/Background.png" id="2_ctkek"]
 [ext_resource type="PackedScene" uid="uid://bhdtrrsvu8ufh" path="res://entities/unit_base.tscn" id="3_jlqbd"]
 [ext_resource type="PackedScene" uid="uid://uwf4vtd7egro" path="res://entities/Resourses/ore_base.tscn" id="5_65b2o"]
+[ext_resource type="PackedScene" uid="uid://dqj6yts5axbk3" path="res://entities/spawners/spawnert_base.tscn" id="5_cj4lc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctkek"]
 size = Vector2(2092, 42)
@@ -46,6 +47,9 @@ position = Vector2(92, -126)
 position = Vector2(111, -151)
 
 [node name="resources" type="Node2D" parent="."]
+
+[node name="SpawnerBase" parent="resources" instance=ExtResource("5_cj4lc")]
+position = Vector2(-888, -61)
 
 [node name="oreBase" parent="resources" instance=ExtResource("5_65b2o")]
 position = Vector2(-820, -42)

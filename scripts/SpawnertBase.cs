@@ -11,13 +11,13 @@ public partial class SpawnertBase : RigidBody2D
     int MIN_SPAWN_OBJECTS       = 1;
     int MAX_SPAWN_OBJECTS       = 6;
 
-    int baseMaxHealt            = 20;                 //TODO: change from hardcoded to obtain from gameManager
-    int currentHealt            = 20;                   //Initialize on _Ready()
+    int baseMaxHealt            = 20;                       //TODO: change from hardcoded to obtain from gameManager
+    int currentHealt            = 20;                       //Initialize on _Ready()
     int baseClickDamage         = 5;
 
     //bool isDead                 = false;
 
-    Vector2 objective           = new Vector2(0,0);     //Initialize on _Ready() from gameManager
+    Vector2 objective           = new Vector2(0,0);         //Initialize on _Ready() from gameManager
     Vector2 selfVelocity        = Vector2.Zero;
     Vector2 jumpImpulse         = new Vector2(0,-300);
     float speed                 = 0.3f;                    //Override on extended class
@@ -33,6 +33,7 @@ public partial class SpawnertBase : RigidBody2D
     HealtBar healtBar;
     Control baseClickArea, criticalClickArea;
     GameManager gameManager;
+    Area2D clickArea;
 
     //*********************************************
     Timer testTimer;
@@ -41,7 +42,8 @@ public partial class SpawnertBase : RigidBody2D
     public override void _Ready()
     {
         gameManager = GetTree().Root.GetChild(0).GetNode<GameManager>("gameManager");
-        
+        clickArea = GetNode<Area2D>("clickZone");
+        clickArea.InputEvent += OnClickAreaInputEnvent;
         base._Ready();
     }
 
@@ -53,7 +55,7 @@ public partial class SpawnertBase : RigidBody2D
 
     public override void _ExitTree()
     {
-        
+        clickArea.InputEvent -= OnClickAreaInputEnvent;
     }
 
     //-------------------------------Custom functions------------------------------
@@ -62,10 +64,12 @@ public partial class SpawnertBase : RigidBody2D
         if(currentHealt > 0){
             int spawnNumber =  GD.RandRange(MIN_SPAWN_OBJECTS,MAX_SPAWN_OBJECTS);
             for(int i = 0; i < spawnNumber; i++){
-                var objectToSpawn = GD.Load<PackedScene>("res://entities/Resourses/ore_base.tscn");
-                var instance = objectToSpawn.Instantiate();
+                PackedScene objectToSpawn = GD.Load<PackedScene>("res://entities/Resourses/ore_base.tscn");
+                RigidBody2D instance = (RigidBody2D)objectToSpawn.Instantiate();
                 AddSibling(instance);
-                instance.
+                instance.Position = new Vector2(this.Position.X+35,this.Position.Y-35);
+                instance.LockRotation = true;
+                currentHealt = baseMaxHealt;
             }
         }
     }
