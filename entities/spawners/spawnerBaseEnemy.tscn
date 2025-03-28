@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dynoi8ypa1m5e"]
+
+[ext_resource type="Script" uid="uid://cdsy652mb1ydo" path="res://scripts/SpawnerBaseEnemy.cs" id="1_urr65"]
+[ext_resource type="Texture2D" uid="uid://boiawsmt0ovjk" path="res://icon.svg" id="2_yrpue"]
+
+[node name="spawnerBaseEnemy" type="RigidBody2D"]
+freeze = true
+script = ExtResource("1_urr65")
+
+[node name="sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yrpue")
+
+[node name="respawnTimer" type="Timer" parent="."]
+autostart = true

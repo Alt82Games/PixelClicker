@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class SpawnertBase : RigidBody2D
+public partial class SpawnertBaseOre : RigidBody2D
 {
     //------------------------------Entity properties------------------------------
     int MAX_FORCE_X             = 100;
