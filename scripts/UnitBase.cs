@@ -90,6 +90,7 @@ public partial class UnitBase : RigidBody2D
     }
 
     public void selfDie(){
+        gameManager.setPoints(15);
         this.QueueFree();
     }
 
@@ -113,7 +114,7 @@ public partial class UnitBase : RigidBody2D
 
     public void OnBaseClickAreaGuiInput(InputEvent @event){
         if(@event.IsActionPressed("MouseLeftClick")){
-            currentHealt -= baseMaxHealt/20;
+            currentHealt -= baseMaxHealt/5;
             healtBar.recibeDamage(currentHealt);
             if(currentHealt <= 0){
                 selfDie();
@@ -122,7 +123,7 @@ public partial class UnitBase : RigidBody2D
     }
     public void OnCriticalClickAreaGuiInput(InputEvent @event){
         if(@event.IsActionPressed("MouseLeftClick")){
-            currentHealt -= baseMaxHealt/10;
+            currentHealt -= baseMaxHealt/2;
             healtBar.recibeDamage(currentHealt);
             if(currentHealt <= 0){
                 selfDie();

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bo70ds3sksh6a"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="points" type="Label" parent="."]
+offset_right = 42.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 20
+text = "Text"
+horizontal_alignment = 1
+vertical_alignment = 1

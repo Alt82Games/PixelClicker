@@ -9,8 +9,8 @@ size = Vector2(3, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pp1wl"]
 size = Vector2(5, 5)
 
-[node name="oreBase" type="RigidBody2D"]
-collision_layer = 4
+[node name="oreBase" type="RigidBody2D" groups=["Resourse"]]
+collision_layer = 7
 collision_mask = 7
 input_pickable = true
 script = ExtResource("1_a0mo6")
@@ -18,12 +18,13 @@ script = ExtResource("1_a0mo6")
 [node name="spriteOre" type="Sprite2D" parent="."]
 texture = ExtResource("1_pp1wl")
 
-[node name="collisionShapeOre" type="CollisionShape2D" parent="."]
+[node name="bodyForm" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_a0mo6")
 
 [node name="clickArea" type="Area2D" parent="."]
-collision_mask = 0
+collision_layer = 3
+collision_mask = 3
 
 [node name="clickBorder" type="CollisionShape2D" parent="clickArea"]
 position = Vector2(-0.5, -0.5)

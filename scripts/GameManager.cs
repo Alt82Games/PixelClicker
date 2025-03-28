@@ -8,6 +8,15 @@ public partial class GameManager : Node2D
     float baseHP = 100;
     float points = 0;
     Vector2 entrancePosition = Vector2.Zero;
+    Label pointLabel;
+
+    public override void _Ready()
+    {
+        pointLabel = GetParent().GetNode<Label>("hud/points");
+        setPoints(0);
+        base._Ready();
+    }
+
 
     public float getCurrentDificulty(){
         return currentDificulty;
@@ -20,6 +29,7 @@ public partial class GameManager : Node2D
     }
     public void setPoints(int x){
         points += x;
+        pointLabel.Text = "Points: " + points.ToString();
     }
     public float getBaseHP(){
         return baseHP * currentDificulty;

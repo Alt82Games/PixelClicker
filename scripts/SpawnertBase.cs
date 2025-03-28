@@ -61,7 +61,8 @@ public partial class SpawnertBase : RigidBody2D
     //-------------------------------Custom functions------------------------------
 
     public void damageOre(){
-        if(currentHealt > 0){
+        currentHealt -= baseClickDamage;
+        if(currentHealt < 0){
             int spawnNumber =  GD.RandRange(MIN_SPAWN_OBJECTS,MAX_SPAWN_OBJECTS);
             for(int i = 0; i < spawnNumber; i++){
                 PackedScene objectToSpawn = GD.Load<PackedScene>("res://entities/Resourses/ore_base.tscn");

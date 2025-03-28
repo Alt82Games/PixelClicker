@@ -1,11 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://cr7g8v5bq7v4o"]
+[gd_scene load_steps=11 format=3 uid="uid://cr7g8v5bq7v4o"]
 
 [ext_resource type="Script" uid="uid://dnnsetq7gj0y4" path="res://scripts/World00.cs" id="1_hdqhg"]
 [ext_resource type="Script" uid="uid://csy4c1wt70gk0" path="res://scripts/GameManager.cs" id="2_anbin"]
 [ext_resource type="Texture2D" uid="uid://deh4a2tdr876j" path="res://art/Background.png" id="2_ctkek"]
 [ext_resource type="PackedScene" uid="uid://bhdtrrsvu8ufh" path="res://entities/unit_base.tscn" id="3_jlqbd"]
+[ext_resource type="Script" uid="uid://dk4ubxyf1l63r" path="res://scripts/ResourseCollection.cs" id="3_sy6h2"]
 [ext_resource type="PackedScene" uid="uid://uwf4vtd7egro" path="res://entities/Resourses/ore_base.tscn" id="5_65b2o"]
 [ext_resource type="PackedScene" uid="uid://dqj6yts5axbk3" path="res://entities/spawners/spawnert_base.tscn" id="5_cj4lc"]
+[ext_resource type="PackedScene" uid="uid://bo70ds3sksh6a" path="res://components/hud.tscn" id="8_7fr8w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sy6h2"]
+size = Vector2(200, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctkek"]
 size = Vector2(2092, 42)
@@ -22,8 +27,18 @@ position = Vector2(-218, -33)
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("2_ctkek")
 
+[node name="resourseCollection" type="Area2D" parent="."]
+position = Vector2(-467, -54)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_sy6h2")
+
+[node name="collectionAreaStone" type="CollisionShape2D" parent="resourseCollection"]
+position = Vector2(18, -6)
+shape = SubResource("RectangleShape2D_sy6h2")
+
 [node name="MainCamera" type="Camera2D" parent="."]
-position = Vector2(-748, -92)
+position = Vector2(-597, -118)
 zoom = Vector2(3, 3)
 
 [node name="floor" type="StaticBody2D" parent="."]
@@ -35,7 +50,7 @@ shape = SubResource("RectangleShape2D_ctkek")
 [node name="enemiesList" type="Node2D" parent="."]
 
 [node name="unitBase" parent="enemiesList" instance=ExtResource("3_jlqbd")]
-position = Vector2(48, -86)
+position = Vector2(-536, -114)
 
 [node name="unitBase2" parent="enemiesList" instance=ExtResource("3_jlqbd")]
 position = Vector2(144, -111)
@@ -49,25 +64,27 @@ position = Vector2(111, -151)
 [node name="resources" type="Node2D" parent="."]
 
 [node name="SpawnerBase" parent="resources" instance=ExtResource("5_cj4lc")]
-position = Vector2(-888, -61)
+position = Vector2(-723, -46)
 
 [node name="oreBase" parent="resources" instance=ExtResource("5_65b2o")]
-position = Vector2(-820, -42)
+position = Vector2(-516, -35)
 
 [node name="oreBase2" parent="resources" instance=ExtResource("5_65b2o")]
-position = Vector2(-815, -63)
+position = Vector2(-511, -56)
 
 [node name="oreBase3" parent="resources" instance=ExtResource("5_65b2o")]
-position = Vector2(-829, -73)
+position = Vector2(-525, -66)
 
 [node name="oreBase4" parent="resources" instance=ExtResource("5_65b2o")]
-position = Vector2(-826, -86)
+position = Vector2(-696, -73)
 
 [node name="oreBase5" parent="resources" instance=ExtResource("5_65b2o")]
-position = Vector2(-825, -103)
+position = Vector2(-695, -90)
 
 [node name="oreBase6" parent="resources" instance=ExtResource("5_65b2o")]
-position = Vector2(-840, -117)
+position = Vector2(-710, -104)
 
 [node name="oreBase7" parent="resources" instance=ExtResource("5_65b2o")]
-position = Vector2(-831, -129)
+position = Vector2(-701, -116)
+
+[node name="hud" parent="." instance=ExtResource("8_7fr8w")]
