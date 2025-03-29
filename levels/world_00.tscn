@@ -50,7 +50,7 @@ shape = SubResource("RectangleShape2D_ctkek")
 [node name="enemiesList" type="Node2D" parent="."]
 
 [node name="enemySpawnerBase" parent="enemiesList" instance=ExtResource("5_n6vnx")]
-position = Vector2(70, -199)
+position = Vector2(862, -455)
 
 [node name="unitBase" parent="enemiesList" instance=ExtResource("3_jlqbd")]
 position = Vector2(-536, -114)

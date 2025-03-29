@@ -30,28 +30,45 @@ public partial class SpawnerBaseEnemy : RigidBody2D
         respawnTimer.Timeout -= OnTimerRespawnTimerTimeout;
         base._ExitTree();
     }
+    
 
+    public int selectEnemy(){
+        return GD.RandRange(0,2);
+    }
+    public int selectEnemyLevel(){
+        int temp = GD.RandRange(0,100);
+        return (temp < 60) ? 1 : (temp < 80) ? 2 : 3;
+    }
 
     public void OnTimerRespawnTimerTimeout(){
+        int spriteAtlasChildIndex = 4;
         PackedScene [] scenes = [GD.Load<PackedScene>("res://entities/unit_base.tscn"),
-                                 GD.Load<PackedScene>("res://entities/unit_base.tscn"),
-                                 GD.Load<PackedScene>("res://entities/unit_base.tscn")];
+                                 GD.Load<PackedScene>("res://entities/enemies/bat.tscn"),
+                                 GD.Load<PackedScene>("res://entities/enemies/slime.tscn")
+                                 ];
         for(int i = GD.RandRange(minObjectsToSpawn,maxObjectsToSpawn); i > 0; i--){
-            int sceneIndex = GD.RandRange(0,scenes.Length-1);
-            RigidBody2D obj = (RigidBody2D)scenes[sceneIndex].Instantiate();
+            int sceneIndex = selectEnemy();
+            int level = selectEnemyLevel();
+            UnitBase obj = (UnitBase)scenes[sceneIndex].Instantiate();
             float y = (float)GD.RandRange(MIN_COORD_Y,MAX_COORD_Y);
             obj.Position = new Vector2(this.Position.X , this.Position.Y + y);
-            if(sceneIndex == 0){
-                obj.GetChild<Sprite2D>(3).SelfModulate = new Color(0.48f,0.09f,0.06f,1);
+                     
+            if(level == 1){
+                obj.GetChild<Sprite2D>(spriteAtlasChildIndex)
+                .SelfModulate = new Color(0.05f,0.95f,0.05f,1);
+                
             }
-            else if(sceneIndex == 1){
-                obj.GetChild<Sprite2D>(3).SelfModulate = new Color(0.86f,0.41f,0.06f,1);
+            else if(level == 2){
+                obj.GetChild<Sprite2D>(spriteAtlasChildIndex)
+                .SelfModulate = new Color(0.05f,0.05f,0.95f,1);
             }
-            else if(sceneIndex == 2){
-                obj.GetChild<Sprite2D>(3).SelfModulate = new Color(0.25f,0.10f,0.80f,1);
+            else if(level == 3){
+                obj.GetChild<Sprite2D>(spriteAtlasChildIndex)
+                .SelfModulate = new Color(0.95f,0.05f,0.05f,1);
             }
             
             AddSibling(obj);
+            obj.initializeThis(level);
             respawnTimer.WaitTime = GD.RandRange(minRespawnTime,maxRespawnTime);
         }
         

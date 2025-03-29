@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpm84anve3w2s"]
+
+[ext_resource type="PackedScene" uid="uid://bhdtrrsvu8ufh" path="res://entities/unit_base.tscn" id="1_cailc"]
+[ext_resource type="Script" uid="uid://beaypfb2bsk8f" path="res://scripts/Slime.cs" id="2_cailc"]
+[ext_resource type="Texture2D" uid="uid://ndoqdf4aqi4u" path="res://art/Slime.png" id="3_cailc"]
+
+[sub_resource type="Animation" id="Animation_2x7cr"]
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spriteAtlas:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_chrk6"]
+resource_name = "move"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spriteAtlas:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n4v56"]
+_data = {
+&"RESET": SubResource("Animation_2x7cr"),
+&"move": SubResource("Animation_chrk6")
+}
+
+[node name="slime" instance=ExtResource("1_cailc")]
+position = Vector2(0, 3)
+script = ExtResource("2_cailc")
+
+[node name="healtBar" parent="." index="0"]
+offset_top = -10.0
+offset_bottom = -2.0
+
+[node name="animationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_n4v56")
+}
+autoplay = "move"
+
+[node name="body" parent="." index="2"]
+visible = false
+
+[node name="spriteAtlas" parent="." index="4"]
+texture = ExtResource("3_cailc")
+flip_h = true
+hframes = 8
+
+[node name="baseClickArea" parent="." index="5"]
+offset_left = -6.0
+offset_top = -5.0
+offset_right = 6.0
+offset_bottom = 5.0
+
+[node name="criticalClickArea" parent="." index="6"]
+offset_left = -3.0
+offset_right = 2.0
+
+[node name="Sprite2D" parent="criticalClickArea" index="0"]
+position = Vector2(3, 2)
+
+[node name="testTimer" parent="." index="7"]
+wait_time = 6.0

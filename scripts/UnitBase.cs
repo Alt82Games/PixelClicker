@@ -11,9 +11,9 @@ public partial class UnitBase : RigidBody2D
     int MAX_FORCE_Y             = -80;                  //Negative to make it go up
     int MIN_FORCE_Y             = -100;
 
-    int baseMaxHealt            = 1000;                 //TODO: change from hardcoded to obtain from gameManager
-    int currentHealt;                                   //Initialize on _Ready()
-    int defense                 = 0;                    //Override on extended class
+    protected int baseMaxHealt  = 1000;                 //TODO: change from hardcoded to obtain from gameManager
+    protected int currentHealt;                                   //Initialize on _Ready()
+    protected int level         = 0;                    //Override on extended class
     int baseClickDamage         = 200;                  //Override on extended class
     int currentRotation         = 0;
 
@@ -22,18 +22,19 @@ public partial class UnitBase : RigidBody2D
     
     Vector2 objective           = new Vector2(0,0);     //Initialize on _Ready() from gameManager
     Vector2 selfVelocity        = Vector2.Zero;
-    Vector2 jumpImpulse         = new Vector2(0,-300);
-    Vector2 objectivePosition;
-    float speed                 = 0.3f;                    //Override on extended class
+    protected Vector2 jumpImpulse         = new Vector2(0,-300);
+    protected Vector2 objectivePosition;
+    protected float speed                 = 0.1f;                    //Override on extended class
     float forceX                = 0.0f;
     float forceY                = 0.0f;
-    float gravityScaleCustom    = 0.4f;
+    protected float gravityScaleCustom    = 0.4f;
+    protected bool alreadyJump = false;
     
     //---------------------------Other nodes references---------------------------
     Sprite2D sprite;                                    //Initialize on _Ready()
     CollisionShape2D collisionShape;
     AnimationPlayer animationPlayer;
-    HealtBar healtBar;
+    protected HealtBar healtBar;
     Control baseClickArea, criticalClickArea;
     GameManager gameManager;
 
@@ -84,20 +85,31 @@ public partial class UnitBase : RigidBody2D
     }
 
     //-------------------------------Custom functions------------------------------
+    public virtual void initializeThis(int level){
+        this.level = level;
+        speed = speed + speed*level;
+        currentHealt = baseMaxHealt*level;
+        healtBar.initializeHealthBar(baseMaxHealt*level);
+        this.GravityScale = gravityScaleCustom;
+    }
     public void startTimer(){
         testTimer.Timeout += OnTimerTestTimeout;
         testTimer.Start();
     }
 
     public void selfDie(){
-        gameManager.setPoints(15);
+        if(this.IsInGroup("Enemy")){
+            gameManager.setPoints(5+(5*level)); //Positive points
+        }
+        else if(this.IsInGroup("Ally")){
+            gameManager.setPoints((5+(5*level))*-1); //Negative Points
+        }
         this.QueueFree();
     }
 
-    public void move(){
+    public virtual void move(){
         if(!isDead){
             objectivePosition = gameManager.getEntrancePosition();
-            this.GravityScale = gravityScaleCustom;
             if (this.Position.DistanceTo(objectivePosition) > 3){
                 selfVelocity = Position.DirectionTo(objectivePosition) * speed;
                 MoveAndCollide(selfVelocity);
@@ -106,9 +118,13 @@ public partial class UnitBase : RigidBody2D
                 selfVelocity = Vector2.Zero;
             }
         }
+        else{
+            this.GravityScale = 1;
+            this.LockRotation = false;
+        }
     }
 
-    public void jump(){
+    public virtual void jump(){
         ApplyCentralImpulse(jumpImpulse);
     }
 
