@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpm84anve3w2s"]
+[gd_scene load_steps=8 format=3 uid="uid://dpm84anve3w2s"]
 
 [ext_resource type="PackedScene" uid="uid://bhdtrrsvu8ufh" path="res://entities/unit_base.tscn" id="1_cailc"]
 [ext_resource type="Script" uid="uid://beaypfb2bsk8f" path="res://scripts/Slime.cs" id="2_cailc"]
@@ -42,6 +42,9 @@ _data = {
 &"move": SubResource("Animation_chrk6")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cailc"]
+size = Vector2(16, 14)
+
 [node name="slime" instance=ExtResource("1_cailc")]
 position = Vector2(0, 3)
 script = ExtResource("2_cailc")
@@ -64,18 +67,22 @@ texture = ExtResource("3_cailc")
 flip_h = true
 hframes = 8
 
-[node name="baseClickArea" parent="." index="5"]
-offset_left = -6.0
-offset_top = -5.0
-offset_right = 6.0
-offset_bottom = 5.0
+[node name="baseClickArea" parent="." index="5" groups=["Enemy"]]
+offset_left = -14.0
+offset_top = -10.0
+offset_right = 1.0
+offset_bottom = 2.0
 
-[node name="criticalClickArea" parent="." index="6"]
-offset_left = -3.0
-offset_right = 2.0
+[node name="criticalClickArea" parent="." index="6" groups=["Enemy"]]
+offset_left = -6.0
+offset_bottom = 0.0
 
 [node name="Sprite2D" parent="criticalClickArea" index="0"]
-position = Vector2(3, 2)
+position = Vector2(3, 3)
 
 [node name="testTimer" parent="." index="7"]
 wait_time = 6.0
+
+[node name="bodyForm" parent="." index="8"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_cailc")

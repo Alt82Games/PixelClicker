@@ -6,6 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_3qgov"]
 
 [node name="spawnerBaseOre" type="RigidBody2D"]
+collision_layer = 8
 script = ExtResource("1_bkyf6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

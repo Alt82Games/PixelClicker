@@ -12,8 +12,6 @@ public partial class GameManager : Node2D
 
     public override void _Ready()
     {
-        pointLabel = GetParent().GetNode<Label>("hud/points");
-        setPoints(0);
         base._Ready();
     }
 
@@ -33,6 +31,12 @@ public partial class GameManager : Node2D
     }
     public float getBaseHP(){
         return baseHP * currentDificulty;
+    }
+    public void setPointsLabel(Label x){
+        pointLabel = x;
+    }
+    public Label getPointsLabel(){
+        return pointLabel;
     }
     public void setEntrancePosition(Vector2 position){
         entrancePosition = position;

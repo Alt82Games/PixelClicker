@@ -1,6 +1,23 @@
 [gd_scene format=3 uid="uid://bo70ds3sksh6a"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="hud" type="CanvasLayer"]
+
+[node name="svpc" type="SubViewportContainer" parent="."]
+offset_right = 192.0
+offset_bottom = 128.0
+
+[node name="svp" type="SubViewport" parent="svpc"]
+handle_input_locally = false
+size = Vector2i(288, 192)
+render_target_update_mode = 4
+
+[node name="subCamera" type="Camera2D" parent="svpc/svp"]
+
+[node name="Line2D" type="Line2D" parent="svpc"]
+position = Vector2(144, 96)
+points = PackedVector2Array(-144, 96, 144, 96, 144, -96, -144, -96)
+closed = true
+width = 2.0
 
 [node name="points" type="Label" parent="."]
 offset_right = 42.0
@@ -13,3 +30,24 @@ theme_override_font_sizes/font_size = 20
 text = "Text"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Upgrade1"
+
+[node name="Label2" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Upgrade2"
+
+[node name="Label3" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Upgrade3"

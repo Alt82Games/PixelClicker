@@ -98,12 +98,16 @@ public partial class UnitBase : RigidBody2D
     }
 
     public void selfDie(){
+        GD.Print("0");
         if(this.IsInGroup("Enemy")){
+            GD.Print("1");
             gameManager.setPoints(5+(5*level)); //Positive points
         }
         else if(this.IsInGroup("Ally")){
+            GD.Print("2");
             gameManager.setPoints((5+(5*level))*-1); //Negative Points
         }
+        GD.Print("3");
         this.QueueFree();
     }
 
@@ -116,6 +120,8 @@ public partial class UnitBase : RigidBody2D
             }
             else{
                 selfVelocity = Vector2.Zero;
+                gameManager.setPoints((5+(5*level))*-1);
+                this.QueueFree();
             }
         }
         else{
@@ -126,6 +132,14 @@ public partial class UnitBase : RigidBody2D
 
     public virtual void jump(){
         ApplyCentralImpulse(jumpImpulse);
+    }
+
+    public void recibeDamage(int x){
+        currentHealt -= x;
+            healtBar.recibeDamage(currentHealt);
+            if(currentHealt <= 0){
+                selfDie();
+            }
     }
 
     public void OnBaseClickAreaGuiInput(InputEvent @event){

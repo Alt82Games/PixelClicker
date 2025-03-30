@@ -10,8 +10,7 @@ size = Vector2(3, 3)
 size = Vector2(5, 5)
 
 [node name="oreBase" type="RigidBody2D" groups=["Resourse"]]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 4
 input_pickable = true
 script = ExtResource("1_a0mo6")
 
