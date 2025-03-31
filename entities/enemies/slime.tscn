@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dpm84anve3w2s"]
 
 [ext_resource type="PackedScene" uid="uid://bhdtrrsvu8ufh" path="res://entities/unit_base.tscn" id="1_cailc"]
-[ext_resource type="Script" uid="uid://beaypfb2bsk8f" path="res://scripts/Slime.cs" id="2_cailc"]
+[ext_resource type="Script" uid="uid://beaypfb2bsk8f" path="res://scripts/entities/Slime.cs" id="2_cailc"]
 [ext_resource type="Texture2D" uid="uid://ndoqdf4aqi4u" path="res://art/Slime.png" id="3_cailc"]
 
 [sub_resource type="Animation" id="Animation_2x7cr"]

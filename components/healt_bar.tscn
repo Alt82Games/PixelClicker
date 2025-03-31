@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://doj8uo0oa74yb"]
 
 [ext_resource type="Texture2D" uid="uid://swy5sqe5ubiw" path="res://art/healtbar1.png" id="1_00cqy"]
-[ext_resource type="Script" uid="uid://bvxp4muxxpsp3" path="res://scripts/HealtBar.cs" id="2_ti5pn"]
+[ext_resource type="Script" uid="uid://bvxp4muxxpsp3" path="res://scripts/components/HealtBar.cs" id="2_ti5pn"]
 
 [node name="healtBar" type="TextureProgressBar"]
 offset_right = 8.0

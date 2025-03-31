@@ -3,8 +3,10 @@ using System;
 
 public partial class BasicLinearProjectile : Sprite2D
 {
-    Node2D objective = null;
+    UnitBase objective = null;
     Vector2 direction = Vector2.Zero;
+    float gravity = 0.095f;
+    int aceleration = 50;
     int speed = 5;
     int projectileDamage = 200;
 
@@ -38,7 +40,7 @@ public partial class BasicLinearProjectile : Sprite2D
     
     public void OnPathUpdateTimerTimeout(){
         try{
-            direction = this.Position.DirectionTo(objective.Position);
+            //direction = this.GlobalPosition.DirectionTo(objective.GlobalPosition);
         }
         catch(ObjectDisposedException){
 
@@ -62,17 +64,28 @@ public partial class BasicLinearProjectile : Sprite2D
     }
 
     public void move(){
-        this.Position += direction * speed;
+        this.GlobalPosition += (direction) * speed;
     }
 
-    public void setObjective(Node2D obje,Vector2 position){
-        this.Position = position;
+    public void setObjective(Node2D obje,Vector2 GlobalPosition){
+        this.GlobalPosition = GlobalPosition;
         //
         if(obje == null){
         }
         else{
-            objective = obje;
-            direction = this.Position.DirectionTo(objective.Position);
+             objective = (UnitBase)obje;
+            Vector2 dir = objective.getEntityVol();
+            float distance = this.GlobalPosition.DistanceTo(objective.GlobalPosition);
+            int steps = (int)Math.Ceiling(distance/speed);
+            Vector2 a = (objective.directionToObjective*objective.speed)*steps;
+            if(objective.IsInGroup("Fly")){
+                direction = this.GlobalPosition.DirectionTo(objective.GlobalPosition + a);
+            }
+            else{
+                direction = this.GlobalPosition.DirectionTo(objective.GlobalPosition);
+            }
+            
+            
         }
         
         

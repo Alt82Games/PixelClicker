@@ -8,12 +8,14 @@ public partial class BasicTurret : StaticBody2D
 {
     Timer timerCD;
     Area2D detectionArea;
+    protected Vector2 spawnPosition;
+    String projectileToShoot = "res://entities/basic_linear_projectile.tscn";
     public override void _Ready()
     {
         timerCD = GetNode<Timer>("shotCD");
         timerCD.Start();
         detectionArea = GetNode<Area2D>("detectionArea");
-        
+        spawnPosition = this.GlobalPosition;
 
 
         timerCD.Timeout             += OnTimerCDTimeout;
@@ -30,16 +32,15 @@ public partial class BasicTurret : StaticBody2D
         detectionArea.BodyExited    -= OnDetectionAreaBodyExited;
     }
 
-
-    public void OnTimerCDTimeout(){
+    public void createProjectile(String projectile){
         Godot.Collections.Array<Node2D> overlap = detectionArea.GetOverlappingBodies();
         List<Node2D> targets = new List<Node2D>();
+        targets.Clear();
         if(overlap.Any()){
             int cont = 0;
-            targets.Clear();
             foreach (Node2D body in overlap){
                 if(body.IsInGroup("Enemy")){
-                    if(body.Position.DistanceTo(this.Position)>20){
+                    if(body.GlobalPosition.DistanceTo(this.GlobalPosition)>20){
                     targets.Add(body);
                     cont ++;
                     if (cont == 10){
@@ -58,18 +59,24 @@ public partial class BasicTurret : StaticBody2D
                         break;
                     }
                     else{
-                        if(this.Position.DistanceTo(objective.Position) > this.Position.DistanceTo(body.Position)){
+                        if(this.GlobalPosition.DistanceTo(objective.GlobalPosition) > this.GlobalPosition.DistanceTo(body.GlobalPosition)){
                             objective = body;
                         }
                     }
                     
                 }
             }
-            PackedScene objectToSpawn = GD.Load<PackedScene>("res://entities/basic_linear_projectile.tscn");
+            PackedScene objectToSpawn = GD.Load<PackedScene>(projectile);
             BasicLinearProjectile instance = (BasicLinearProjectile)objectToSpawn.Instantiate();
             AddSibling(instance);
-            instance.setObjective(objective,this.Position);
+            instance.setObjective(objective,this.GlobalPosition);
         }
+    }
+
+    
+
+    public virtual void OnTimerCDTimeout(){
+        createProjectile(projectileToShoot);
     }
     public void OnDetectionAreaBodyEntered(Node2D body){
         //GD.Print("+1" + body);

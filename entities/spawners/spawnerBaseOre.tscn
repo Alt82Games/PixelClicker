@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dqj6yts5axbk3"]
 
-[ext_resource type="Script" uid="uid://ungt1so5gxt1" path="res://scripts/SpawnertBaseOre.cs" id="1_bkyf6"]
+[ext_resource type="Script" uid="uid://ungt1so5gxt1" path="res://scripts/components/SpawnertBaseOre.cs" id="1_bkyf6"]
 [ext_resource type="Texture2D" uid="uid://c4g8w7ch55bji" path="res://art/00C.png" id="2_3dvmm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3qgov"]

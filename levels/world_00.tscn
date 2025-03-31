@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://cr7g8v5bq7v4o"]
 
-[ext_resource type="Script" uid="uid://dnnsetq7gj0y4" path="res://scripts/World00.cs" id="1_hdqhg"]
-[ext_resource type="Script" uid="uid://csy4c1wt70gk0" path="res://scripts/GameManager.cs" id="2_anbin"]
+[ext_resource type="Script" uid="uid://dnnsetq7gj0y4" path="res://scripts/components/World00.cs" id="1_hdqhg"]
+[ext_resource type="Script" uid="uid://csy4c1wt70gk0" path="res://scripts/components/GameManager.cs" id="2_anbin"]
 [ext_resource type="Texture2D" uid="uid://deh4a2tdr876j" path="res://art/Background.png" id="2_ctkek"]
-[ext_resource type="Script" uid="uid://dk4ubxyf1l63r" path="res://scripts/ResourseCollection.cs" id="3_sy6h2"]
+[ext_resource type="Script" uid="uid://dk4ubxyf1l63r" path="res://scripts/components/ResourseCollection.cs" id="3_sy6h2"]
 [ext_resource type="PackedScene" uid="uid://uwf4vtd7egro" path="res://entities/Resourses/ore_base.tscn" id="5_65b2o"]
 [ext_resource type="PackedScene" uid="uid://dqj6yts5axbk3" path="res://entities/spawners/spawnerBaseOre.tscn" id="5_cj4lc"]
 [ext_resource type="PackedScene" uid="uid://dynoi8ypa1m5e" path="res://entities/spawners/spawnerBaseEnemy.tscn" id="5_n6vnx"]
 [ext_resource type="PackedScene" uid="uid://bo70ds3sksh6a" path="res://components/hud.tscn" id="8_7fr8w"]
-[ext_resource type="PackedScene" uid="uid://dqaamqajmwkjf" path="res://entities/basic_turret.tscn" id="8_n6vnx"]
+[ext_resource type="PackedScene" uid="uid://bjquiajtn2n0t" path="res://entities/ally/golem_00.tscn" id="9_n6hlu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sy6h2"]
 size = Vector2(200, 4)
@@ -16,7 +16,7 @@ size = Vector2(200, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctkek"]
 size = Vector2(2092, 42)
 
-[node name="world_00" type="Node2D"]
+[node name="world_00" type="Node2D" groups=["Ally"]]
 script = ExtResource("1_hdqhg")
 
 [node name="gameManager" type="Node2D" parent="."]
@@ -80,7 +80,22 @@ position = Vector2(-701, -116)
 
 [node name="allyList" type="Node2D" parent="."]
 
-[node name="basicTurret" parent="allyList" instance=ExtResource("8_n6vnx")]
-position = Vector2(-214, -80)
+[node name="golem_00" parent="allyList" instance=ExtResource("9_n6hlu")]
+position = Vector2(-205, -122)
+
+[node name="golem_01" parent="allyList" instance=ExtResource("9_n6hlu")]
+position = Vector2(-225, -121)
+
+[node name="golem_02" parent="allyList" instance=ExtResource("9_n6hlu")]
+position = Vector2(-247, -121)
+
+[node name="golem_03" parent="allyList" instance=ExtResource("9_n6hlu")]
+position = Vector2(-270, -121)
+
+[node name="golem_04" parent="allyList" instance=ExtResource("9_n6hlu")]
+position = Vector2(-200, -37)
+
+[node name="golem_05" parent="allyList" instance=ExtResource("9_n6hlu")]
+position = Vector2(-237, -37)
 
 [node name="hud" parent="." instance=ExtResource("8_7fr8w")]

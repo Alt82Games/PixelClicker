@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3g0y4mscnfhr"]
+[gd_scene load_steps=4 format=3 uid="uid://diu4kqt676pdp"]
 
-[ext_resource type="Texture2D" uid="uid://c4g8w7ch55bji" path="res://art/00C.png" id="1_nymit"]
-[ext_resource type="Script" uid="uid://bj76tcnyp5b7f" path="res://scripts/entities/BasicLinearProjectile.cs" id="2_ii07i"]
+[ext_resource type="Texture2D" uid="uid://c4g8w7ch55bji" path="res://art/00C.png" id="1_n6r5o"]
+[ext_resource type="Script" uid="uid://tlaea54m8lev" path="res://scripts/entities/BasicParabolicProjectile.cs" id="2_n6r5o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nymit"]
 radius = 8.0
 
-[node name="basicLinearProjectile" type="Sprite2D"]
+[node name="basicParabolicProjectile" type="Sprite2D"]
 self_modulate = Color(0.339467, 0.749404, 0.384184, 1)
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_nymit")
-script = ExtResource("2_ii07i")
+texture = ExtResource("1_n6r5o")
+script = ExtResource("2_n6r5o")
 
 [node name="hitArea" type="Area2D" parent="."]
 collision_layer = 16

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqaamqajmwkjf"]
 
 [ext_resource type="Texture2D" uid="uid://cm781saygxkv7" path="res://art/00R.png" id="1_hnlnm"]
-[ext_resource type="Script" uid="uid://bghakhb0btrsx" path="res://scripts/BasicTurret.cs" id="1_lfsiv"]
+[ext_resource type="Script" uid="uid://bghakhb0btrsx" path="res://scripts/entities/BasicTurret.cs" id="1_lfsiv"]
 [ext_resource type="Texture2D" uid="uid://swy5sqe5ubiw" path="res://art/healtbar1.png" id="2_lfsiv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lfsiv"]

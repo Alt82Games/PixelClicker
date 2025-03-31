@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bhdtrrsvu8ufh" path="res://entities/unit_base.tscn" id="1_chrk6"]
 [ext_resource type="Texture2D" uid="uid://c1gsfmxvd1xvj" path="res://art/Bat1_V2.png" id="2_2x7cr"]
-[ext_resource type="Script" uid="uid://c0j7ypa5b72nk" path="res://scripts/Bat.cs" id="2_n4v56"]
+[ext_resource type="Script" uid="uid://c0j7ypa5b72nk" path="res://scripts/entities/Bat.cs" id="2_n4v56"]
 
 [sub_resource type="Animation" id="Animation_2x7cr"]
 length = 0.001
@@ -45,7 +45,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_2x7cr"]
 radius = 7.0
 
-[node name="bat" instance=ExtResource("1_chrk6")]
+[node name="bat" groups=["Fly"] instance=ExtResource("1_chrk6")]
 script = ExtResource("2_n4v56")
 
 [node name="healtBar" parent="." index="0"]

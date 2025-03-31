@@ -11,18 +11,20 @@ public partial class Bat : UnitBase
         currentHealt = baseMaxHealt*level;
         healtBar.initializeHealthBar(baseMaxHealt*level);
         this.GravityScale = gravityScaleCustom;
+        jumpImpulse = (jumpImpulse)*0.3f;
     }
 
     public override void jump(){
-        Vector2 jumpImpulse = this.Position.DirectionTo(objectivePosition)*100;
+        Vector2 jumpImpulse = this.GlobalPosition.DirectionTo(objectivePosition)*100;
         if(alreadyJump){
-            jumpImpulse = (jumpImpulse*-1)*0.6f;
-            ApplyCentralImpulse(jumpImpulse);
+            ApplyCentralImpulse(jumpImpulse*-1);
             alreadyJump = false;
+            testTimer.WaitTime = 0.5f;
         }
         else{
             ApplyCentralImpulse(jumpImpulse);
             alreadyJump = true;
+            testTimer.WaitTime = 1.0f;
         }
         
     }

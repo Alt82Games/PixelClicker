@@ -17,6 +17,8 @@ public partial class UnitBase : RigidBody2D
     int baseClickDamage         = 200;                  //Override on extended class
     int currentRotation         = 0;
 
+    Vector2 oldPosition, entityVol;
+
     bool isDead                 = false;
 
     
@@ -24,7 +26,8 @@ public partial class UnitBase : RigidBody2D
     Vector2 selfVelocity        = Vector2.Zero;
     protected Vector2 jumpImpulse         = new Vector2(0,-300);
     protected Vector2 objectivePosition;
-    protected float speed                 = 0.1f;                    //Override on extended class
+    public Vector2 directionToObjective;
+    public float speed                 = .2f;                    //Override on extended class
     float forceX                = 0.0f;
     float forceY                = 0.0f;
     protected float gravityScaleCustom    = 0.4f;
@@ -39,12 +42,14 @@ public partial class UnitBase : RigidBody2D
     GameManager gameManager;
 
     //*********************************************
-    Timer testTimer;
+    protected Timer testTimer;
 
     //------------------------------Override functions----------------------------
     public override void _Ready()
     {
         gameManager = GetTree().Root.GetChild(0).GetNode<GameManager>("gameManager");
+        oldPosition = this.GlobalPosition;
+        entityVol = this.GlobalPosition - oldPosition;
         
         healtBar = GetNode<HealtBar>("healtBar");
         healtBar.initializeHealthBar(baseMaxHealt);
@@ -57,6 +62,7 @@ public partial class UnitBase : RigidBody2D
         criticalClickArea.GuiInput      += OnCriticalClickAreaGuiInput;
 
         objectivePosition                = gameManager.getEntrancePosition();
+        directionToObjective = this.GlobalPosition.DirectionTo(objectivePosition);
 
         this.LockRotation = true;
 
@@ -75,6 +81,8 @@ public partial class UnitBase : RigidBody2D
     {
         move();
         base._PhysicsProcess(delta);
+        entityVol = this.GlobalPosition - oldPosition;
+        oldPosition = this.GlobalPosition;
     }
 
     public override void _ExitTree()
@@ -87,10 +95,13 @@ public partial class UnitBase : RigidBody2D
     //-------------------------------Custom functions------------------------------
     public virtual void initializeThis(int level){
         this.level = level;
-        speed = speed + speed*level;
+        speed = speed*level;
         currentHealt = baseMaxHealt*level;
         healtBar.initializeHealthBar(baseMaxHealt*level);
         this.GravityScale = gravityScaleCustom;
+    }
+    public Vector2 getEntityVol(){
+        return entityVol;
     }
     public void startTimer(){
         testTimer.Timeout += OnTimerTestTimeout;
@@ -98,24 +109,20 @@ public partial class UnitBase : RigidBody2D
     }
 
     public void selfDie(){
-        GD.Print("0");
         if(this.IsInGroup("Enemy")){
-            GD.Print("1");
             gameManager.setPoints(5+(5*level)); //Positive points
         }
         else if(this.IsInGroup("Ally")){
-            GD.Print("2");
             gameManager.setPoints((5+(5*level))*-1); //Negative Points
         }
-        GD.Print("3");
         this.QueueFree();
     }
 
     public virtual void move(){
         if(!isDead){
             objectivePosition = gameManager.getEntrancePosition();
-            if (this.Position.DistanceTo(objectivePosition) > 3){
-                selfVelocity = Position.DirectionTo(objectivePosition) * speed;
+            if (this.GlobalPosition.DistanceTo(objectivePosition) > 3){
+                selfVelocity = GlobalPosition.DirectionTo(objectivePosition) * speed;
                 MoveAndCollide(selfVelocity);
             }
             else{

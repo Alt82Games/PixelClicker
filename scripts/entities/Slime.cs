@@ -19,7 +19,7 @@ public partial class Slime : UnitBase
 
     public override void jump(){ 
         int y = GD.RandRange(120 ,250);
-        jumpImpulse = new Vector2(this.Position.DirectionTo(objectivePosition).X * 80,-y);
+        jumpImpulse = new Vector2(this.GlobalPosition.DirectionTo(objectivePosition).X * 80,-y);
         ApplyCentralImpulse(jumpImpulse);
         
     }

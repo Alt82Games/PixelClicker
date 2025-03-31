@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://uwf4vtd7egro"]
 
-[ext_resource type="Script" uid="uid://tybj3n28yv77" path="res://scripts/OreBase.cs" id="1_a0mo6"]
+[ext_resource type="Script" uid="uid://tybj3n28yv77" path="res://scripts/entities/OreBase.cs" id="1_a0mo6"]
 [ext_resource type="Texture2D" uid="uid://cyqsb16ksnjar" path="res://art/Stone.png" id="1_pp1wl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0mo6"]
