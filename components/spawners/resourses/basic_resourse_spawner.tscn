@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1ctivhbfow5d"]
+
+[ext_resource type="Script" uid="uid://dibh3cc67htvp" path="res://components/spawners/resourses/BasicResourseSpawner.cs" id="1_qyode"]
+[ext_resource type="Texture2D" uid="uid://w1rwqn8bwgk3" path="res://art/generalUse/00C.png" id="2_64akx"]
+
+[node name="basicResourseSpawner" type="StaticBody2D"]
+script = ExtResource("1_qyode")
+
+[node name="spawnerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_64akx")
+
+[node name="hitArea" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://jic0uqukxe7k"]
+
+[ext_resource type="Texture2D" uid="uid://6r2ou6unhxer" path="res://art/components/base/baselv0.png" id="1_4v4l6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4v4l6"]
+radius = 7.0
+
+[node name="base" type="Sprite2D"]
+texture = ExtResource("1_4v4l6")
+
+[node name="entranceArea" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="entranceAreaShape" type="CollisionShape2D" parent="entranceArea"]
+shape = SubResource("CircleShape2D_4v4l6")
