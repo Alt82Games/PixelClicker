@@ -24,11 +24,13 @@ texture = ExtResource("1_drtq2")
 position = Vector2(0, -3)
 texture = ExtResource("2_e00ek")
 
+[node name="spriteAtlas" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("1_drtq2")
+
 [node name="body" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CapsuleShape2D_r26nj")
-
-[node name="spriteAtlas" type="Sprite2D" parent="."]
 
 [node name="baseClickArea" type="Control" parent="."]
 layout_mode = 3
@@ -58,3 +60,7 @@ offset_top = -13.0
 offset_right = 0.0
 offset_bottom = -5.0
 mouse_filter = 2
+
+[node name="dashTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true

@@ -8,7 +8,7 @@ public partial class HealtBar : TextureProgressBar
         this.Value = maxHealt;
         this.Step = maxHealt/100;
     }
-    public void recibeDamage(float currentHealt){
+    public void receiveDamage(float currentHealt){
         this.Value = currentHealt;
     }
 }

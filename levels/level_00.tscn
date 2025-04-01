@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtonulxt4h24w"]
+[gd_scene load_steps=11 format=3 uid="uid://dtonulxt4h24w"]
 
 [ext_resource type="Script" uid="uid://dulabrhua5jph" path="res://levels/Level00.cs" id="1_gkh1h"]
 [ext_resource type="PackedScene" uid="uid://dcybuj4f5bq1o" path="res://components/game_manager.tscn" id="2_sj2j1"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dl3txaryauxgc" path="res://components/main_camera.tscn" id="6_y1gos"]
 [ext_resource type="PackedScene" uid="uid://b2w1x380ur4cl" path="res://entities/enemyUnits/enemy_unit_base.tscn" id="7_iqu7t"]
 [ext_resource type="PackedScene" uid="uid://cbf3eqqw044ug" path="res://components/hud.tscn" id="8_s6v32"]
+[ext_resource type="PackedScene" uid="uid://cbxgg83v6v555" path="res://components/spawners/enemy/enemy_spawner.tscn" id="9_q5upp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6v32"]
 
@@ -32,7 +33,7 @@ position = Vector2(700, -9)
 position = Vector2(825, -9)
 
 [node name="enemyUnitBase" parent="." instance=ExtResource("7_iqu7t")]
-position = Vector2(1021, -42)
+position = Vector2(1134, -120)
 
 [node name="hud" parent="." instance=ExtResource("8_s6v32")]
 
@@ -42,3 +43,6 @@ position = Vector2(1021, -42)
 position = Vector2(1604, 35)
 scale = Vector2(176.116, 3.50404)
 shape = SubResource("RectangleShape2D_s6v32")
+
+[node name="enemySpawner" parent="." instance=ExtResource("9_q5upp")]
+position = Vector2(2076, -487)
