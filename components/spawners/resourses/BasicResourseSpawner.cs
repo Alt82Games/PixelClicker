@@ -4,8 +4,8 @@ using System;
 public partial class BasicResourseSpawner : StaticBody2D
 {
     //Variables and constants---------------------------------------------
-    float maxHealt = 10;
-    float currentHealt = 10;
+    float maxHealt = 60;
+    float currentHealt = 60;
     //Node references-----------------------------------------------------
     Control hitArea;
     GameManager gameManager;
@@ -31,11 +31,11 @@ public partial class BasicResourseSpawner : StaticBody2D
 
     public void OnHitAreaGuiInput(InputEvent input){
         if(input.IsActionPressed("MouseLeftClick")){
-            int baseClickDamage = gameManager.BaseClickDamage;
+            float clickDamage = gameManager.GetClickDamage();
             int clickMultiplier = gameManager.ClickDamageMultiplier;
             int numberOfClicks = gameManager.ClicksPerClick;
-            for(int i = 0; i <= numberOfClicks; i++){
-                currentHealt -= baseClickDamage*clickMultiplier;
+            for(int i = 0; i < numberOfClicks; i++){
+                currentHealt -= clickDamage;
                 if(currentHealt <= 0){
                     currentHealt = maxHealt;
                     spawnResourse();
