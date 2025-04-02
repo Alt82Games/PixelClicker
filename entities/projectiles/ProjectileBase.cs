@@ -12,7 +12,8 @@ public partial class ProjectileBase : CharacterBody2D
     [Export]int speed = 200;
     [Export]int projectileDamage = 200;
     float gravityScaleCustom    = 9.8f;
-    float vx, x, vy, y;
+    float stepsPredicted;
+    //float vx, x, vy, y;
         
     //Node references-----------------------------------------------------
     GameManager gameManager;
@@ -26,7 +27,7 @@ public partial class ProjectileBase : CharacterBody2D
         expireTimer = GetNode<Timer>("expireTimer");
         pathUpdate = GetNode<Timer>("pathUpdate");
         hitArea = GetNode<Area2D>("hitArea");
-
+        
         expireTimer.Timeout += OnTimerExpireTimerTimeout;
         hitArea.BodyEntered += OnHitAreaBodyEntered;
         pathUpdate.Timeout  += OnPathUpdateTimerTimeout;
@@ -36,7 +37,7 @@ public partial class ProjectileBase : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        move((float)delta);
+        move(delta);
     }
 
     public override void _ExitTree()
@@ -75,9 +76,9 @@ public partial class ProjectileBase : CharacterBody2D
 
     //Custom functions----------------------------------------------------
 
-    public void move(float delta){
+    public void move(double delta){
         MoveAndSlide();
-        //Velocity += new Vector2(0,gravityScaleCustom*delta);
+        Velocity += new Vector2(0,(float)(gravityScaleCustom*delta));
     }
 
     public Vector2 calculateInterceptionPoint(float dist){
@@ -102,6 +103,7 @@ public partial class ProjectileBase : CharacterBody2D
             //GD.Print("POS1:" +target.GlobalPosition + "POS1Expected:" + targetPredictedPosition);
             //GD.Print("Expected movement: "+target.directionToObjective*(target.getSpeed()*steps2));
             //GD.Print("POS2:" +target.GlobalPosition + "POS2Expected:" + targetPredictedPositionTuned);
+            stepsPredicted = steps2;
             return targetPredictedPositionTuned;
         }
     }
@@ -116,29 +118,16 @@ public partial class ProjectileBase : CharacterBody2D
             targetInitialPosition = target.GlobalPosition;
             float distance = this.GlobalPosition.DistanceTo(target.GlobalPosition);
             float hipotenusa = (float)Math.Sqrt(Math.Pow((target.GlobalPosition.Y-GlobalPosition.Y),2) + Math.Pow((target.GlobalPosition.X-GlobalPosition.X),2));
-            //GD.Print("HIPO: "+hipotenusa+"DISTANCE: "+distance+" DISTANCE X: " + (target.GlobalPosition.X-GlobalPosition.X)+" DISTANCE Y: " + (target.GlobalPosition.Y-GlobalPosition.Y));
-           Vector2 targetPredictedPositionLocal = calculateInterceptionPoint(this.GlobalPosition.DistanceTo(target.GlobalPosition));
-            vx = speed;
-            x =  targetPredictedPositionLocal.X-this.GlobalPosition.X;
-            y =  targetPredictedPositionLocal.Y-this.GlobalPosition.Y;
-            vy = ((y*vx)/x) + ((gravityScaleCustom*x)/(2*vx));
-            float steps = this.GlobalPosition.DistanceTo(targetPredictedPositionLocal)/speed;
-            //GD.Print(targetPredictedPositionLocal-this.GlobalPosition);
-            //GD.Print("X:"+x+"  VX:"+vx+"  Y"+y+"  VY"+vy); 
-            Velocity = (targetPredictedPositionLocal-this.GlobalPosition)/steps;
-            
+            Vector2 targetPredictedPositionLocal = calculateInterceptionPoint(this.GlobalPosition.DistanceTo(target.GlobalPosition));
+
+            float x = (targetPredictedPositionLocal.X-this.GlobalPosition.X);
+            float vx = speed;
+            float timeToIntercept = x/vx;
+            float y = (targetPredictedPositionLocal.Y-this.GlobalPosition.Y)*-1;
+            float vy = (float)((vx/x)*(y+((gravityScaleCustom*0.5f)*(Math.Pow(x,2)/Math.Pow(vx,2)))));
+            Velocity = new Vector2(vx,-vy);
             
         }
-        /*
-         target = (EnemyUnitBase)obje;
-            float distance = this.GlobalPosition.DistanceTo(target.GlobalPosition);
-            float steps = distance/(speed+target.getSpeed());
-            Vector2 targetPredictedPosition = target.directionToObjective*(target.getSpeed()*steps);
-            vx = speed;
-            x = target.GlobalPosition.X - this.GlobalPosition.X - targetPredictedPosition.X*-1;
-            y = ((gravityScaleCustom/2)*x)/vx;    
-            Velocity = new Vector2(vx,y*-1);
-        */
         
     }
     public Vector2 customRound(Vector2 pos){

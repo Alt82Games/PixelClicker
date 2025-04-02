@@ -4,5 +4,4 @@
 [ext_resource type="Script" uid="uid://daur1mym056g8" path="res://entities/enemyUnits/EnemyUnitFlying.cs" id="2_rjg2t"]
 
 [node name="enemyUnitFlying" instance=ExtResource("1_ff3y2")]
-scale = Vector2(1, 1)
 script = ExtResource("2_rjg2t")

@@ -59,7 +59,7 @@ public partial class TurretBasic : StaticBody2D
                     if(body.GlobalPosition.X-this.GlobalPosition.X>150){
                     targets.Add(body);
                     cont ++;
-                    if (cont == 10){
+                    if (cont == 100){
                         break;
                     }
                 }
