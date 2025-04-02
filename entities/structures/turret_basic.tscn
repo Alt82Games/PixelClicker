@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0uo87evbtefa"]
+
+[ext_resource type="Script" uid="uid://bogl4bdxevm0a" path="res://entities/structures/TurretBasic.cs" id="1_iivn0"]
+[ext_resource type="Texture2D" uid="uid://dtx2i38o81dir" path="res://art/entities/ally/golem.png" id="2_y8sjf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iivn0"]
+size = Vector2(1688, 827)
+
+[node name="turretBasic" type="StaticBody2D"]
+script = ExtResource("1_iivn0")
+
+[node name="turretSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_y8sjf")
+
+[node name="shotCD" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="detectionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="detectionAreaCollisionShape" type="CollisionShape2D" parent="detectionArea"]
+position = Vector2(834, 56.5)
+shape = SubResource("RectangleShape2D_iivn0")

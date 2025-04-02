@@ -3,5 +3,4 @@
 [ext_resource type="Script" uid="uid://bg8xlxajs0usl" path="res://components/MainCamera.cs" id="1_28ott"]
 
 [node name="MainCamera" type="Camera2D"]
-zoom = Vector2(2, 2)
 script = ExtResource("1_28ott")

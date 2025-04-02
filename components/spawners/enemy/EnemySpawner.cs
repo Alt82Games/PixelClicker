@@ -9,8 +9,8 @@ public partial class EnemySpawner : Node2D
     int MIN_COORD_Y         = -120;
     int maxRespawnTime      = 8;
     int minRespawnTime      = 2;
-    int minObjectsToSpawn   = 1;
-    int maxObjectsToSpawn   = 6;
+    int minObjectsToSpawn   = 10;
+    int maxObjectsToSpawn   = 15;
     float forceX            = 0.0f;
     float forceY            = 0.0f;
     float gravityScaleCustom= 0.05f;
@@ -33,8 +33,8 @@ public partial class EnemySpawner : Node2D
     
 
     public int selectEnemy(){
-        //return GD.RandRange(0,2);
-        return 0; //Change to the last line when there are more enemies
+        return GD.RandRange(0,1);
+        //return 0; //Change to the last line when there are more enemies
     }
     public int selectEnemyLevel(){
         int temp = GD.RandRange(0,100);
@@ -43,7 +43,8 @@ public partial class EnemySpawner : Node2D
 
     public void OnTimerRespawnTimerTimeout(){
         int spriteAtlasChildIndex = 2;
-        PackedScene [] scenes = [GD.Load<PackedScene>("res://entities/enemyUnits/enemy_unit_base.tscn")];
+        PackedScene [] scenes = [GD.Load<PackedScene>("res://entities/enemyUnits/enemy_unit_base.tscn"),
+                                 GD.Load<PackedScene>("res://entities/enemyUnits/enemy_unit_flying.tscn")];
         for(int i = GD.RandRange(minObjectsToSpawn,maxObjectsToSpawn); i > 0; i--){
             int sceneIndex = selectEnemy();
             int level = selectEnemyLevel();

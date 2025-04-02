@@ -7,20 +7,21 @@ public partial class EnemyUnitBase : CharacterBody2D
 //Variables and constants---------------------------------------------
     float maxHealt = 100;
     float currentHealt = 100;
-    float speed = 50;
     float jumpSpeedBase = 50;
     float jumpSpeed = 0;
     float jumpMultiplier = 4;
-    float gravityScaleCustom    = 9.5f*0.6f;
+    protected float gravityScaleCustom    = 9.8f;
+    public Vector2 directionToObjective = Vector2.Zero;
+    public float speed = 50;
 
     int level = 0;
 
-    protected Vector2 target,currentPosition,lastPosition;
+    public Vector2 target,currentPosition,lastPosition;
 
 
     //Node references-----------------------------------------------------
 
-    GameManager gameManager;
+    protected GameManager gameManager;
     Control baseClickArea,criticalClickArea;
     HealtBar healtBar;
     Timer dashTimer;
@@ -68,7 +69,7 @@ public partial class EnemyUnitBase : CharacterBody2D
     private void OnCriticalClickAreaGuiInput(InputEvent input)
     {
         if(input.IsActionPressed("MouseLeftClick")){
-            receiveDamage(gameManager.GetClickDamage(),true);
+            receiveClickDamage(true);
         }
     }
 
@@ -76,14 +77,13 @@ public partial class EnemyUnitBase : CharacterBody2D
     private void OnBaseClickAreaGuiInput(InputEvent input)
     {
         if(input.IsActionPressed("MouseLeftClick")){
-           receiveDamage(gameManager.GetClickDamage(),false);
+           receiveClickDamage(false);
             
         }
     }
 
     private void OnDashTimerTimeout()
     {
-        GD.Print("jump");
         dash();
     }
 
@@ -94,26 +94,22 @@ public partial class EnemyUnitBase : CharacterBody2D
         speed = speed*level;
         currentHealt = maxHealt*level;
         healtBar.initializeHealthBar(maxHealt*level);
+        target = gameManager.EnemyObjective;
+        directionToObjective = GlobalPosition.DirectionTo(target);
+        
 
     }
 
-    public void move(){
+    public virtual void move(){
         target = gameManager.EnemyObjective;
-        Vector2 directionToObjective = GlobalPosition.DirectionTo(target);
+        directionToObjective = GlobalPosition.DirectionTo(target);
         if(!IsOnFloor()){
             jumpSpeed += gravityScaleCustom;
             
         }
-        //GD.Print(Position + ", " + target);
-       // GD.Print("Distance: " + this.GlobalPosition.DistanceTo(target) );
         if(this.GlobalPosition.DistanceTo(target) > 1){
-            GD.Print(jumpSpeed);
             Velocity = (directionToObjective.Normalized()*speed);
-            GD.Print(Velocity);
             Velocity += new Vector2(0,jumpSpeed);
-            GD.Print(Velocity);
-            
-            //GD.Print(Velocity);
         }
         else{
             Velocity = Vector2.Zero;
@@ -122,13 +118,30 @@ public partial class EnemyUnitBase : CharacterBody2D
         MoveAndSlide();
     }
 
+    public float getSpeed(){
+        return speed;
+    }
+
     public void dash(){
         if(IsOnFloor()){
             jumpSpeed = jumpSpeedBase*jumpMultiplier*-1;
         }
     }
 
-    public void receiveDamage(float damage, bool critical){
+    public void receiveDamage(float damage,bool critical){
+        //TODO: Add function that convert some of the normal clicks to critical clicks
+        float damageRecieve = damage;
+        if(critical){
+            damageRecieve *= gameManager.CriticalClickMultiplier;
+        }
+        currentHealt -= damageRecieve;
+        healtBar.receiveDamage(currentHealt);
+        showDamageNumber(damageRecieve);
+        if(currentHealt <= 0){
+               dead();                
+        }
+    }
+    public void receiveClickDamage(bool critical){
         //TODO: Add function that convert some of the normal clicks to critical clicks
         float clickDamage = gameManager.GetClickDamage();
         int numberOfClicks = gameManager.ClicksPerClick;
@@ -136,17 +149,16 @@ public partial class EnemyUnitBase : CharacterBody2D
             clickDamage *= gameManager.CriticalClickMultiplier;
         }
         for(int i = 0; i < numberOfClicks; i++){
-            GD.Print(clickDamage);
             currentHealt -= clickDamage;
             healtBar.receiveDamage(currentHealt);
-            showDamageNumber();
+            showDamageNumber(clickDamage);
              if(currentHealt <= 0){
                dead();                
             }
         }
         
     }
-    public void showDamageNumber(){
+    public void showDamageNumber(float damage){
         //make a number appear over the enemy showing the damage that it recive for each click and if critical damage show other animation
     }
     public void dead(){

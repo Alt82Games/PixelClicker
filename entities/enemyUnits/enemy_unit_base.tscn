@@ -9,7 +9,7 @@
 radius = 3.0
 height = 10.0
 
-[node name="enemyUnitBase" type="CharacterBody2D"]
+[node name="enemyUnitBase" type="CharacterBody2D" groups=["Enemy"]]
 scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 3

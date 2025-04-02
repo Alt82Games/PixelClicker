@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dtonulxt4h24w"]
+[gd_scene load_steps=12 format=3 uid="uid://dtonulxt4h24w"]
 
 [ext_resource type="Script" uid="uid://dulabrhua5jph" path="res://levels/Level00.cs" id="1_gkh1h"]
 [ext_resource type="PackedScene" uid="uid://dcybuj4f5bq1o" path="res://components/game_manager.tscn" id="2_sj2j1"]
@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://jic0uqukxe7k" path="res://components/base.tscn" id="4_wybcj"]
 [ext_resource type="PackedScene" uid="uid://d1ctivhbfow5d" path="res://components/spawners/resourses/basic_resourse_spawner.tscn" id="5_mmdti"]
 [ext_resource type="PackedScene" uid="uid://dl3txaryauxgc" path="res://components/main_camera.tscn" id="6_y1gos"]
-[ext_resource type="PackedScene" uid="uid://b2w1x380ur4cl" path="res://entities/enemyUnits/enemy_unit_base.tscn" id="7_iqu7t"]
 [ext_resource type="PackedScene" uid="uid://cbf3eqqw044ug" path="res://components/hud.tscn" id="8_s6v32"]
 [ext_resource type="PackedScene" uid="uid://cbxgg83v6v555" path="res://components/spawners/enemy/enemy_spawner.tscn" id="9_q5upp"]
+[ext_resource type="PackedScene" uid="uid://d0uo87evbtefa" path="res://entities/structures/turret_basic.tscn" id="10_hk1ki"]
+[ext_resource type="PackedScene" uid="uid://d2qbwii5akpi5" path="res://entities/enemyUnits/enemy_unit_flying.tscn" id="11_u4dht"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6v32"]
 
@@ -24,16 +25,13 @@ texture = ExtResource("3_wybcj")
 [node name="base" parent="." instance=ExtResource("4_wybcj")]
 position = Vector2(812, -7)
 
+[node name="MainCamera" parent="." instance=ExtResource("6_y1gos")]
+position = Vector2(1966, -287)
+
 [node name="resources" type="Node2D" parent="."]
 
 [node name="basicResourseSpawner" parent="resources" instance=ExtResource("5_mmdti")]
 position = Vector2(700, -9)
-
-[node name="MainCamera" parent="." instance=ExtResource("6_y1gos")]
-position = Vector2(825, -9)
-
-[node name="enemyUnitBase" parent="." instance=ExtResource("7_iqu7t")]
-position = Vector2(1134, -120)
 
 [node name="hud" parent="." instance=ExtResource("8_s6v32")]
 
@@ -44,5 +42,36 @@ position = Vector2(1604, 35)
 scale = Vector2(176.116, 3.50404)
 shape = SubResource("RectangleShape2D_s6v32")
 
-[node name="enemySpawner" parent="." instance=ExtResource("9_q5upp")]
-position = Vector2(2076, -487)
+[node name="ally" type="Node2D" parent="."]
+
+[node name="turretBasic" parent="ally" instance=ExtResource("10_hk1ki")]
+position = Vector2(771, -356)
+
+[node name="turretBasic2" parent="ally" instance=ExtResource("10_hk1ki")]
+position = Vector2(773, -32)
+
+[node name="turretBasic3" parent="ally" instance=ExtResource("10_hk1ki")]
+position = Vector2(774, -117)
+
+[node name="turretBasic4" parent="ally" instance=ExtResource("10_hk1ki")]
+position = Vector2(772, -239)
+
+[node name="enemy" type="Node2D" parent="."]
+
+[node name="enemySpawner" parent="enemy" instance=ExtResource("9_q5upp")]
+position = Vector2(2524, -542)
+
+[node name="enemyUnitFlying2" parent="enemy" instance=ExtResource("11_u4dht")]
+position = Vector2(1154, -252)
+
+[node name="enemyUnitFlying3" parent="enemy" instance=ExtResource("11_u4dht")]
+position = Vector2(1298, -314)
+
+[node name="enemyUnitFlying4" parent="enemy" instance=ExtResource("11_u4dht")]
+position = Vector2(1448, -156)
+
+[node name="enemyUnitFlying5" parent="enemy" instance=ExtResource("11_u4dht")]
+position = Vector2(1479, -291)
+
+[node name="enemyUnitFlying6" parent="enemy" instance=ExtResource("11_u4dht")]
+position = Vector2(1456, -357)

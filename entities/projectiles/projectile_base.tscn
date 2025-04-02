@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh22p3uxdu605"]
+
+[ext_resource type="Texture2D" uid="uid://w1rwqn8bwgk3" path="res://art/generalUse/00C.png" id="1_heyrr"]
+[ext_resource type="Script" uid="uid://c7y8ynarftc3c" path="res://entities/projectiles/ProjectileBase.cs" id="2_a6h5p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a6h5p"]
+radius = 4.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("2_a6h5p")
+speed = 180
+projectileDamage = 50
+
+[node name="hitArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 5
+
+[node name="hitAreaCollisionShape" type="CollisionShape2D" parent="hitArea"]
+shape = SubResource("CircleShape2D_a6h5p")
+
+[node name="expireTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="pathUpdate" type="Timer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_heyrr")
