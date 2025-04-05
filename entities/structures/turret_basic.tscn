@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0uo87evbtefa"]
+[gd_scene load_steps=5 format=3 uid="uid://d0uo87evbtefa"]
 
 [ext_resource type="Script" uid="uid://bogl4bdxevm0a" path="res://entities/structures/TurretBasic.cs" id="1_iivn0"]
 [ext_resource type="Texture2D" uid="uid://dtx2i38o81dir" path="res://art/entities/ally/golem.png" id="2_y8sjf"]
+[ext_resource type="PackedScene" uid="uid://ux8qeu7xu2ws" path="res://components/turret_upgrade_menu_base.tscn" id="3_77mey"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iivn0"]
-size = Vector2(1688, 827)
+[sub_resource type="CircleShape2D" id="CircleShape2D_77mey"]
+radius = 1000.0
 
 [node name="turretBasic" type="StaticBody2D"]
 script = ExtResource("1_iivn0")
@@ -16,9 +17,15 @@ texture = ExtResource("2_y8sjf")
 wait_time = 0.25
 
 [node name="detectionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 4
 
 [node name="detectionAreaCollisionShape" type="CollisionShape2D" parent="detectionArea"]
-position = Vector2(834, 56.5)
-shape = SubResource("RectangleShape2D_iivn0")
+shape = SubResource("CircleShape2D_77mey")
+
+[node name="turretUpgradeMenuBase" parent="." instance=ExtResource("3_77mey")]
+offset_left = -32.0
+offset_top = -36.0
+offset_right = 32.0
+offset_bottom = 9.0

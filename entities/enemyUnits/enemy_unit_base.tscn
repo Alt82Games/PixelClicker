@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://doj8uo0oa74yb" path="res://components/healt_bar.tscn" id="4_0tbhf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r26nj"]
-radius = 6.0
-height = 20.0
+radius = 11.0
+height = 22.0
 
 [node name="enemyUnitBase" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -15,12 +15,14 @@ collision_mask = 3
 script = ExtResource("1_e00ek")
 
 [node name="headSprite" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(0.286275, 0.584314, 0, 1)
 position = Vector2(0, -4)
 scale = Vector2(2, 2)
 texture = ExtResource("1_drtq2")
 
 [node name="bodySprite" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, -4.5)
 scale = Vector2(2, 2.1875)
 texture = ExtResource("2_e00ek")
@@ -33,6 +35,8 @@ texture = ExtResource("1_drtq2")
 [node name="body" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_r26nj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="baseClickArea" type="Control" parent="."]
 layout_mode = 3
@@ -65,3 +69,6 @@ mouse_filter = 2
 [node name="dashTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="deadTimer" type="Timer" parent="."]
+one_shot = true

@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://ux8qeu7xu2ws"]
+
+[ext_resource type="Script" uid="uid://cc1axxw324qe2" path="res://components/TurretUpgradeMenuBase.cs" id="1_0g87s"]
+[ext_resource type="Texture2D" uid="uid://0lwnpwsqsx1v" path="res://art/generalUse/skillUpgradeBackground.png" id="1_vjv5e"]
+[ext_resource type="Texture2D" uid="uid://cj7so8vdf1xqq" path="res://art/generalUse/buttons/fireSpeedUpgradeButtonNormal.png" id="2_0g87s"]
+[ext_resource type="Texture2D" uid="uid://jjwigk1c60f6" path="res://art/generalUse/buttons/fireSpeedUpgradeButtonPress.png" id="3_kf3wa"]
+[ext_resource type="Texture2D" uid="uid://coyfvnuojq1cf" path="res://art/generalUse/buttons/fireSpeedUpgradeButtonHover.png" id="4_72psq"]
+[ext_resource type="Texture2D" uid="uid://b5l2yhwhwniy5" path="res://art/generalUse/buttons/DamageUpgradeButtonNormal.png" id="5_w8dcw"]
+[ext_resource type="Texture2D" uid="uid://cwbjig2j151yg" path="res://art/generalUse/buttons/fireSpeedUpgradeButtonDisable.png" id="6_72psq"]
+[ext_resource type="Texture2D" uid="uid://da73n83amboyg" path="res://art/generalUse/buttons/DamageUpgradeButtonPress.png" id="6_mnny6"]
+[ext_resource type="Texture2D" uid="uid://cjg52i4fjtyb0" path="res://art/generalUse/buttons/DamageUpgradeButtonHover.png" id="7_0bsk7"]
+[ext_resource type="Texture2D" uid="uid://b777y3crgljg6" path="res://art/generalUse/buttons/DamageUpgradeButtonDisable.png" id="9_kf3wa"]
+
+[node name="turretUpgradeMenuBase" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1216.0
+offset_bottom = -675.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0g87s")
+
+[node name="upgradeMenuBackground" type="Sprite2D" parent="."]
+position = Vector2(32, 16)
+texture = ExtResource("1_vjv5e")
+
+[node name="upgradeFireRate" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 30.0
+mouse_filter = 1
+texture_normal = ExtResource("2_0g87s")
+texture_pressed = ExtResource("3_kf3wa")
+texture_hover = ExtResource("4_72psq")
+texture_disabled = ExtResource("6_72psq")
+
+[node name="upgradeDamage" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 2.0
+offset_right = 61.0
+offset_bottom = 30.0
+mouse_filter = 1
+texture_normal = ExtResource("5_w8dcw")
+texture_pressed = ExtResource("6_mnny6")
+texture_hover = ExtResource("7_0bsk7")
+texture_disabled = ExtResource("9_kf3wa")

@@ -1,12 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckt8wqqq0s6u3"]
+[gd_scene load_steps=3 format=3 uid="uid://ckt8wqqq0s6u3"]
 
 [ext_resource type="Theme" uid="uid://dwiw6qkta3val" path="res://components/general_button.tres" id="1_qukn4"]
+[ext_resource type="Script" uid="uid://128r0qhypd7h" path="res://components/GeneralButton.cs" id="2_egif6"]
 
 [node name="generalButton" type="Button"]
 offset_right = 124.0
 offset_bottom = 84.0
+focus_mode = 0
 theme = ExtResource("1_qukn4")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
 text = "Upgrade 
 button 1"
+script = ExtResource("2_egif6")

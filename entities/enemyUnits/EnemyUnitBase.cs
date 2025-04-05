@@ -12,11 +12,17 @@ public partial class EnemyUnitBase : CharacterBody2D
     float jumpMultiplier = 4;
     protected float gravityScaleCustom    = 9.8f;
     public Vector2 directionToObjective = Vector2.Zero;
-    public float speed = 50;
+    public float speed = GD.RandRange(40,60);
+    protected bool isDead = false;
+    protected Vector2 initialVelocityDead = new Vector2(20,-98);
+    protected Vector2 gravityDead = new Vector2(0,9.8f);
 
-    int level = 0;
+    protected int level = 0;
+    protected int basePointsGiven = 7;
 
     public Vector2 target,currentPosition,lastPosition;
+    String damageNumberScene = "res://components/damage_number_label.tscn";
+    
 
 
     //Node references-----------------------------------------------------
@@ -24,7 +30,8 @@ public partial class EnemyUnitBase : CharacterBody2D
     protected GameManager gameManager;
     Control baseClickArea,criticalClickArea;
     HealtBar healtBar;
-    Timer dashTimer;
+    Timer dashTimer, deadTimer;
+    Sprite2D spriteAtlas;
 
     //Overrided functions-------------------------------------------------
     public override void _Ready()
@@ -34,6 +41,8 @@ public partial class EnemyUnitBase : CharacterBody2D
         healtBar = GetNode<HealtBar>("healtBar");
         healtBar.initializeHealthBar(maxHealt);
 
+        spriteAtlas = GetNode<Sprite2D>("spriteAtlas");
+
         baseClickArea = GetNode<Control>("baseClickArea");
         baseClickArea.GuiInput += OnBaseClickAreaGuiInput;
 
@@ -42,13 +51,15 @@ public partial class EnemyUnitBase : CharacterBody2D
 
         dashTimer = GetNode<Timer>("dashTimer");
         dashTimer.Timeout += OnDashTimerTimeout;
-        
+
+        deadTimer = GetNode<Timer>("deadTimer");
+        deadTimer.Timeout += OnDeadTimerTimeout;         
         base._Ready();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        move();
+        move((float)delta);
         
         base._PhysicsProcess(delta);
     }
@@ -59,11 +70,14 @@ public partial class EnemyUnitBase : CharacterBody2D
         baseClickArea.GuiInput -= OnBaseClickAreaGuiInput;
         criticalClickArea.GuiInput -= OnCriticalClickAreaGuiInput;
         dashTimer.Timeout -= OnDashTimerTimeout;
+        deadTimer.Timeout -= OnDeadTimerTimeout;
         base._ExitTree();
     }
 
 
+
     //Signal functions----------------------------------------------------
+
 
 
     private void OnCriticalClickAreaGuiInput(InputEvent input)
@@ -86,6 +100,10 @@ public partial class EnemyUnitBase : CharacterBody2D
     {
         dash();
     }
+    private void OnDeadTimerTimeout()
+    {
+        QueueFree();
+    }
 
     //Custom functions----------------------------------------------------
     
@@ -100,20 +118,37 @@ public partial class EnemyUnitBase : CharacterBody2D
 
     }
 
-    public virtual void move(){
-        target = gameManager.EnemyObjective;
-        directionToObjective = GlobalPosition.DirectionTo(target);
-        if(!IsOnFloor()){
-            jumpSpeed += gravityScaleCustom;
-            
-        }
-        if(this.GlobalPosition.DistanceTo(target) > 1){
-            Velocity = (directionToObjective.Normalized()*speed);
-            Velocity += new Vector2(0,jumpSpeed);
+    public virtual void move(float delta){
+        if(!isDead){
+            target = gameManager.EnemyObjective;
+            directionToObjective = GlobalPosition.DirectionTo(target);
+            if(!IsOnFloor()){
+                jumpSpeed += gravityScaleCustom;
+                
+            }
+            if(this.GlobalPosition.DistanceTo(target) > 1){
+                Velocity = (directionToObjective.Normalized()*speed);
+                Velocity += new Vector2(0,jumpSpeed);
+            }
+            else{
+                Velocity = Vector2.Zero;
+            }
         }
         else{
-            Velocity = Vector2.Zero;
+            this.GlobalPosition += initialVelocityDead*delta-gravityDead*delta;
+		    initialVelocityDead += gravityDead;
+            if(Modulate.A > 0.1f){
+                Modulate -= new Color (0,0,0,1f*delta);
+            }
+            if(RotationDegrees < 355){
+                RotationDegrees += 90*delta;
+            }
+            else{
+                RotationDegrees = 0;
+            }
+            
         }
+        
         
         MoveAndSlide();
     }
@@ -123,7 +158,7 @@ public partial class EnemyUnitBase : CharacterBody2D
     }
 
     public void dash(){
-        if(IsOnFloor()){
+        if(IsOnFloor() && !isDead){
             jumpSpeed = jumpSpeedBase*jumpMultiplier*-1;
         }
     }
@@ -158,13 +193,22 @@ public partial class EnemyUnitBase : CharacterBody2D
         }
         
     }
+
     public void showDamageNumber(float damage){
-        //make a number appear over the enemy showing the damage that it recive for each click and if critical damage show other animation
+        PackedScene objectToSpawn = GD.Load<PackedScene>(damageNumberScene);
+        DamageNumberLabel instance = (DamageNumberLabel)objectToSpawn.Instantiate();
+        instance.GlobalPosition = this.GlobalPosition;
+        instance.setDamageText(damage);
+        AddSibling(instance);
     }
     public void dead(){
-        //Start timer to queue free (2 sec)
-        //Apply force to do dead animation, a little impulse up and back with a rotation
-        QueueFree();
-
+        SetCollisionLayerValue(3,false);
+        RemoveFromGroup("Enemy");
+        baseClickArea.MouseFilter = (Control.MouseFilterEnum)2;
+        criticalClickArea.MouseFilter = (Control.MouseFilterEnum)2; 
+        isDead = true;
+        Velocity = Vector2.Zero;
+        gameManager.CurrentPoints += basePointsGiven*level; //TODO: Make it drop a coin or cristal to click or hover to pick up and gain the points instead
+        deadTimer.Start();
     }
 }

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class ProjectileBase : CharacterBody2D
 {
@@ -10,7 +11,7 @@ public partial class ProjectileBase : CharacterBody2D
     Vector2 targetInitialPosition;
     Vector2 targetPredictedPosition,targetPredictedPositionTuned;
     [Export]int speed = 200;
-    [Export]int projectileDamage = 200;
+    [Export]float projectileDamage = 200;
     float gravityScaleCustom    = 9.8f;
     float stepsPredicted;
     //float vx, x, vy, y;
@@ -65,13 +66,16 @@ public partial class ProjectileBase : CharacterBody2D
 
     public void OnHitAreaBodyEntered(Node2D body){
         try{
-            EnemyUnitBase target = (EnemyUnitBase)body;
-            target.receiveDamage(projectileDamage,false);//TODO: CHECK FOR CRITICAL HITS FOR THE PROJECTILES MAYBE A UPGRADE WITH GM
+            if(body.IsInGroup("Enemy")){
+                    EnemyUnitBase target = (EnemyUnitBase)body;
+                    target.receiveDamage(projectileDamage,false);//TODO: CHECK FOR CRITICAL HITS FOR THE PROJECTILES MAYBE A UPGRADE WITH GM
+                }
         }
-        catch(Exception){
-
-        };
-        this.QueueFree();
+        catch(Exception exc){
+            GD.Print(exc);
+        }
+        gameManager.queueFreeList.Add(this);
+        
     }
 
     //Custom functions----------------------------------------------------
@@ -108,8 +112,9 @@ public partial class ProjectileBase : CharacterBody2D
         }
     }
 
-    public void setObjective(Node2D obje,Vector2 GlobalPosition){
+    public void setObjective(Node2D obje,Vector2 GlobalPosition, float damage){
         this.GlobalPosition = GlobalPosition;
+        this.projectileDamage = damage;
         //
         if(obje == null){
         }

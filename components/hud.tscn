@@ -39,6 +39,10 @@ text = "Text"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="updatePointsTimer" type="Timer" parent="points"]
+wait_time = 0.25
+autostart = true
+
 [node name="fps" type="Label" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
@@ -55,8 +59,7 @@ text = "Text"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(200, 125)
+[node name="buttons" type="HBoxContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -65,5 +68,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="generalButton" parent="HBoxContainer" instance=ExtResource("2_nk167")]
+[node name="skillUpgrade1" parent="buttons" instance=ExtResource("2_nk167")]
 layout_mode = 2
+skillUpgradeNumber = 1
+
+[node name="skillUpgrade2" parent="buttons" instance=ExtResource("2_nk167")]
+layout_mode = 2
+text = "Upgrade 
+button 2"
+skillUpgradeNumber = 2
+
+[node name="skillUpgrade3" parent="buttons" instance=ExtResource("2_nk167")]
+layout_mode = 2
+text = "Upgrade 
+button 3"
+skillUpgradeNumber = 3

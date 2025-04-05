@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgo4qr7tohm3p"]
+
+[ext_resource type="Script" uid="uid://3odbp8hc32tl" path="res://components/DamageNumberLabel.cs" id="1_1mi6h"]
+[ext_resource type="Texture2D" uid="uid://dw34w1g73epyq" path="res://art/generalUse/DamageNumberBackground.png" id="2_lnmf1"]
+
+[node name="damageNumberLabel" type="Node2D"]
+script = ExtResource("1_1mi6h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_lnmf1")
+
+[node name="damageText" type="Label" parent="."]
+offset_left = -5.0
+offset_top = -3.0
+offset_right = 35.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="despawnTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
