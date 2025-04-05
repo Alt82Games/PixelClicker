@@ -75,6 +75,8 @@ public partial class ProjectileBase : CharacterBody2D
             GD.Print(exc);
         }
         gameManager.queueFreeList.Add(this);
+        this.Visible = false;
+        SetDeferred("hitArea.Monitoring", false); //TODO: Change later for a better way for the piercing upgrade
         
     }
 
